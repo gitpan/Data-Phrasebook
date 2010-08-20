@@ -5,7 +5,8 @@ use base qw( Data::Phrasebook::Loader::Base Data::Phrasebook::Debug );
 use Carp qw( croak );
 use IO::File;
 
-our $VERSION = '0.29';
+use vars qw($VERSION);
+$VERSION = '0.30';
 
 =head1 NAME
 
@@ -30,10 +31,10 @@ Data::Phrasebook::Loader::Text - Absract your phrases with plain text files.
 
 =head1 DESCRIPTION
 
-This loader plugin implements phrasebook patterns using plain text files. 
+This loader plugin implements phrasebook patterns using plain text files.
 
-Phrases can be contained within one or more dictionaries, with each phrase 
-accessible via a unique key. Phrases may contain placeholders, please see 
+Phrases can be contained within one or more dictionaries, with each phrase
+accessible via a unique key. Phrases may contain placeholders, please see
 L<Data::Phrasebook> for an explanation of how to use these. Groups of phrases
 are kept in a dictionary. In this implementation a single file is one
 complete dictionary.
@@ -42,7 +43,7 @@ An example plain text file:
 
   foo=Welcome to :my world. It is a nice :place.
 
-Within the phrase text placeholders can be used, which are then replaced with 
+Within the phrase text placeholders can be used, which are then replaced with
 the appropriate values once the get() method is called. The default style of
 placeholders can be altered using the delimiters() method.
 
@@ -160,7 +161,7 @@ sub dicts {
 =head2 keywords
 
 Having instantiated the C<Data::Phrasebook> object class, using the C<file>
-and C<dict> attributes as required, the object can return a list of the 
+and C<dict> attributes as required, the object can return a list of the
 current keywords available as:
 
   my $pb = Data::Phrasebook->new(
@@ -175,10 +176,10 @@ or
 
   my @keywords = $pb->keywords( $path, $dict );
 
-Note that $path can either be the directory path, where $dict must be the 
+Note that $path can either be the directory path, where $dict must be the
 specific file name of the dictionary, or the full path of the dictionary file.
 
-In the second instance, the function will not load a dictionary, but can be 
+In the second instance, the function will not load a dictionary, but can be
 used to interrogate the contents of a known dictionary.
 
 =cut
@@ -223,13 +224,9 @@ Please see the README file.
 
 =head1 COPYRIGHT AND LICENSE
 
-  Copyright (C) 2004-2007 Barbie for Miss Barbell Productions.
+  Copyright (C) 2004-2010 Barbie for Miss Barbell Productions.
 
-  This module is free software; you can redistribute it and/or 
-  modify it under the same terms as Perl itself.
-
-The full text of the licenses can be found in the F<Artistic> and
-F<COPYING> files included with this module, or in L<perlartistic> and
-L<perlgpl> in Perl 5.8.1 or later.
+  This module is free software; you can redistribute it and/or
+  modify it under the Artistic Licence v2.
 
 =cut

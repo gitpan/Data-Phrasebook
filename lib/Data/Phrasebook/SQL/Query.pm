@@ -5,7 +5,8 @@ use base qw( Data::Phrasebook::Debug );
 use vars qw( $AUTOLOAD );
 use Carp qw( croak );
 
-our $VERSION = '0.29';
+use vars qw($VERSION);
+$VERSION = '0.30';
 
 =head1 NAME
 
@@ -25,7 +26,7 @@ each query requested.
 
 =head2 new
 
-Not to be accessed directly, but via the parent L<Data::Phrasebook>, by 
+Not to be accessed directly, but via the parent L<Data::Phrasebook>, by
 specifying the class as SQL.
 
 =head1 METHODS
@@ -114,8 +115,7 @@ Calls C<prepare> if necessary.
 
 =cut
 
-sub execute
-{
+sub execute {
     my $self = shift;
     $self->store(3,"->execute IN: @_")	if($self->debug);
     my $sth = $self->sth;
@@ -140,8 +140,7 @@ in the order needed by the query itself.
 
 =cut
 
-sub order_args
-{
+sub order_args {
     my $self = shift;
     my %args = (@_ == 1 ? %{$_[0]} : @_);
     my @order = $self->order;
@@ -168,8 +167,7 @@ to know about it.
 
 =cut
 
-sub prepare
-{
+sub prepare {
     my $self = shift;
     $self->store(3,"$self->prepare IN")	if($self->debug);
     my $sql = $self->sql;
@@ -190,8 +188,7 @@ This method is not needed externally to this class.
 
 =cut
 
-sub rebind
-{
+sub rebind {
     my $self = shift;
     my $sth = $self->sth;
     my $args = $self->args;
@@ -217,16 +214,14 @@ All these delegations will implicitly call C<prepare>.
 #Any C<fetch*> methods will additionally call C<execute>
 #unless the statement handle is already active.
 
-sub _call_other
-{
+sub _call_other {
     my ($self, $execute, $method) = splice @_, 0, 3;
     my $sth = $self->sth || $self->prepare();
     $self->execute() if $execute and not $sth->{Active};
     return $sth->$method( @_ );
 }
 
-sub AUTOLOAD
-{
+sub AUTOLOAD {
     my $self = shift;
     my ($method) = $AUTOLOAD =~ /([^:]+)$/;
 #print STDERR "\n#[$AUTOLOAD][$method]\n";
@@ -251,7 +246,7 @@ __END__
 
 =head1 SEE ALSO
 
-L<Data::Phrasebook>, 
+L<Data::Phrasebook>,
 L<Data::Phrasebook::SQL>.
 
 =head1 SUPPORT
@@ -267,13 +262,9 @@ Please see the README file.
 =head1 COPYRIGHT AND LICENSE
 
   Copyright (C) 2003 Iain Truskett.
-  Copyright (C) 2004-2007 Barbie for Miss Barbell Productions.
+  Copyright (C) 2004-2010 Barbie for Miss Barbell Productions.
 
-  This library is free software; you can redistribute it and/or modify
-  it under the same terms as Perl itself.
-
-The full text of the licenses can be found in the F<Artistic> and
-F<COPYING> files included with this module, or in L<perlartistic> and
-L<perlgpl> in Perl 5.8.1 or later.
+  This module is free software; you can redistribute it and/or
+  modify it under the Artistic Licence v2.
 
 =cut

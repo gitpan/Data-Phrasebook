@@ -4,7 +4,8 @@ use warnings FATAL => 'all';
 use base qw( Data::Phrasebook::Generic Data::Phrasebook::Debug );
 use Carp qw( croak );
 
-our $VERSION = '0.29';
+use vars qw($VERSION);
+$VERSION = '0.30';
 
 =head1 NAME
 
@@ -31,14 +32,14 @@ Data::Phrasebook::Plain - The Simple Phrasebook Model.
 
 =head1 DESCRIPTION
 
-This module is the fallback or default phrasebook class. It doesn't do much 
+This module is the fallback or default phrasebook class. It doesn't do much
 except act as a very simple templating facility.
 
 =head1 METHODS
 
 =head2 fetch
 
-Retrieves the specified C<template> and substitutes any C<keywords> for 
+Retrieves the specified C<template> and substitutes any C<keywords> for
 C<values>.
 
 Thus, given:
@@ -59,8 +60,7 @@ The delimiters are deliberately taken from L<Template> Toolkit.
 
 =cut
 
-sub fetch
-{
+sub fetch {
     my $self = shift;
     my ($id, $args) = @_;
 
@@ -90,7 +90,7 @@ __END__
 
 =head1 SEE ALSO
 
-L<Data::Phrasebook>, 
+L<Data::Phrasebook>,
 L<Data::Phrasebook::Generic>.
 
 =head1 SUPPORT
@@ -106,13 +106,9 @@ Please see the README file.
 =head1 COPYRIGHT AND LICENSE
 
   Copyright (C) 2003 Iain Truskett.
-  Copyright (C) 2004-2007 Barbie for Miss Barbell Productions.
+  Copyright (C) 2004-2010 Barbie for Miss Barbell Productions.
 
-  This library is free software; you can redistribute it and/or modify
-  it under the same terms as Perl itself.
-
-The full text of the licenses can be found in the F<Artistic> and
-F<COPYING> files included with this module, or in L<perlartistic> and
-L<perlgpl> in Perl 5.8.1 or later.
+  This module is free software; you can redistribute it and/or
+  modify it under the Artistic Licence v2.
 
 =cut

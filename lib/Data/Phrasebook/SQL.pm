@@ -6,7 +6,8 @@ use Carp qw( croak );
 
 use Data::Phrasebook::SQL::Query;
 
-our $VERSION = '0.29';
+use vars qw($VERSION);
+$VERSION = '0.30';
 
 =head1 NAME
 
@@ -49,7 +50,7 @@ executes your queries appropriately.
 
 =head2 new
 
-Not to be accessed directly, but via the parent L<Data::Phrasebook>, by 
+Not to be accessed directly, but via the parent L<Data::Phrasebook>, by
 specifying the class as SQL.
 
 Additional arguments to those described in L<Data::Phrasebook::Generic> are:
@@ -77,7 +78,7 @@ sub dbh {
 
 =head2 query
 
-Constructs a L<Data::Phrasebook::SQL::Query> object from a template. Takes at 
+Constructs a L<Data::Phrasebook::SQL::Query> object from a template. Takes at
 least one argument, this being the identifier for the query. The identifier is
 used as a key into the phrasebook C<file>. A second argument can be provided,
 which is an optional hashref of key to value mappings.
@@ -110,16 +111,16 @@ You could write:
 
 In the above examples, the parameters are bound to the SQL using the bind
 parameters functionality. This is more efficient in most cases where the
-same SQL is reused with different values for fields. 
+same SQL is reused with different values for fields.
 
 However, not all SQL statements just need to bind parameters, some may require
-the ability to replace parameters, such as a field list. 
+the ability to replace parameters, such as a field list.
 
     ---
     find_author:
         sql: select :fields from books where author = :author
 
-    my $q = $book->query( 'find_author', 
+    my $q = $book->query( 'find_author',
         replace => { fields => 'class,title,author' },
         bind    => { author => 'Lance Parkin' }
         );
@@ -127,7 +128,7 @@ the ability to replace parameters, such as a field list.
     # sql  = select class,title,author from books where author = ?
     # args = 'Lance Parkin'
 
-In all instances, if the SQL template requested does not exist or has no 
+In all instances, if the SQL template requested does not exist or has no
 definition, then an error will be thrown.
 
 Consult L<Data::Phrasebook::SQL::Query> for what you can then do with your
@@ -135,7 +136,7 @@ returned object.
 
 For reference: the bind hashref argument, if it is given, is given to the
 query object's C<order_args> and then C<args> methods.
-  
+
 =cut
 
 sub query {
@@ -200,7 +201,7 @@ sub query {
         $self->store(4,'->query order=['.join(',',@order).']');
         $self->store(4,'->query params=['.$self->dumper($params).']');
     }
-    
+
     my $q = Data::Phrasebook::SQL::Query->new(
         sql => $sql,
         order => \@order,
@@ -209,7 +210,6 @@ sub query {
     $q->args( $q->order_args( $params ) ) if($params);
     return $q;
 }
-
 
 1;
 
@@ -234,13 +234,9 @@ Please see the README file.
 =head1 COPYRIGHT AND LICENSE
 
   Copyright (C) 2003 Iain Truskett.
-  Copyright (C) 2004-2007 Barbie for Miss Barbell Productions.
+  Copyright (C) 2004-2010 Barbie for Miss Barbell Productions.
 
-  This library is free software; you can redistribute it and/or modify
-  it under the same terms as Perl itself.
-
-The full text of the licenses can be found in the F<Artistic> and
-F<COPYING> files included with this module, or in L<perlartistic> and
-L<perlgpl> in Perl 5.8.1 or later.
+  This module is free software; you can redistribute it and/or
+  modify it under the Artistic Licence v2.
 
 =cut

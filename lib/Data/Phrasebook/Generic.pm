@@ -5,7 +5,8 @@ use Data::Phrasebook::Loader;
 use base qw( Data::Phrasebook::Debug );
 use Carp qw( croak );
 
-our $VERSION = '0.29';
+use vars qw($VERSION);
+$VERSION = '0.30';
 
 =head1 NAME
 
@@ -57,7 +58,7 @@ sub new {
 
 	my $self = bless {}, $class;
 
-    # set default delimiters, in case custom delimiters 
+    # set default delimiters, in case custom delimiters
     # are provided in the hash
     $self->{delimiters} = qr{ :(\w+) }x;
 
@@ -171,7 +172,7 @@ or
 
   my @dicts = $pb->dicts( $path );
 
-=cut 
+=cut
 
 sub dicts {
     my $self = shift;
@@ -196,7 +197,7 @@ sub dicts {
 =head2 keywords
 
 Having instantiated the C<Data::Phrasebook> object class, using the C<dict>
-attribute as required, the object can return a list of the current keywords 
+attribute as required, the object can return a list of the current keywords
 available (provided the plugin supports it) as:
 
   my $pb = Data::Phrasebook->new(
@@ -214,7 +215,7 @@ or
 Note the list will be a combination of the default and any named dictionary.
 However, not all Loader plugins may support the second usage.
 
-=cut 
+=cut
 
 sub keywords {
     my $self = shift;
@@ -238,7 +239,7 @@ sub keywords {
 
 =head2 data
 
-Loads the data source, if not already loaded, and returns the data block 
+Loads the data source, if not already loaded, and returns the data block
 associated with the given key.
 
     my $data = $self->data($key);
@@ -247,8 +248,7 @@ This is typically only used internally by implementations, not the end user.
 
 =cut
 
-sub data
-{
+sub data {
     my $self = shift;
     my $id = shift;
 
@@ -304,7 +304,7 @@ __END__
 
 =head1 SEE ALSO
 
-L<Data::Phrasebook>, 
+L<Data::Phrasebook>,
 L<Data::Phrasebook::Loader>.
 
 =head1 SUPPORT
@@ -320,13 +320,9 @@ Please see the README file.
 =head1 COPYRIGHT AND LICENSE
 
   Copyright (C) 2003 Iain Truskett.
-  Copyright (C) 2004-2007 Barbie for Miss Barbell Productions.
+  Copyright (C) 2004-2010 Barbie for Miss Barbell Productions.
 
-  This library is free software; you can redistribute it and/or modify
-  it under the same terms as Perl itself.
-
-The full text of the licenses can be found in the F<Artistic> and
-F<COPYING> files included with this module, or in L<perlartistic> and
-L<perlgpl> in Perl 5.8.1 or later.
+  This module is free software; you can redistribute it and/or
+  modify it under the Artistic Licence v2.
 
 =cut
